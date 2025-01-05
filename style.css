@@ -29,6 +29,17 @@ h2 {
   margin-left: 15px;
 }
 
+.search-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+}
+::placeholder{
+  text-align: center;
+  opacity: 0.5;
+}
+
 .photo {
   width: 30%;
   height: 175px;

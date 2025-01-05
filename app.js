@@ -75,6 +75,26 @@ const menu = [
 
 const categories = ["All", ...new Set(menu.map((item) => item.category))];
 const buttonContainer = document.querySelector(".btn-container");
+const searchContainer = document.querySelector(".search-container");
+
+searchContainer.innerHTML = `
+      <div clas="section-center row">
+        <div class="col-lg-6 col-sm-12">
+          <input type="text" id="search" placeholder="Search a item">
+          </input>
+          </div>
+      </div>`;
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', function(event){
+  const searchText=event.target.value.toLowerCase();
+  filterMenu(searchText);
+})
+function filterMenu(searchText){
+  const filteredMenu = menu.filter(item=>
+    item.title.toLowerCase().includes(searchText)
+  );
+  displayMenu(filteredMenu)
+}
 
 buttonContainer.innerHTML = categories
   .map((category) => {
@@ -110,16 +130,15 @@ function displayMenu(menuItems) {
 
 displayMenu(menu);
 
-const filterButtons = document.querySelectorAll('.btn-item');
-filterButtons.forEach(button => {
-  button.addEventListener('click', ()=>{
-    const category=button.getAttribute('data-id');
-    if(category === "All"){
+const filterButtons = document.querySelectorAll(".btn-item");
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const category = button.getAttribute("data-id");
+    if (category === "All") {
       displayMenu(menu);
+    } else {
+      const filteredMenu = menu.filter((item) => item.category === category);
+      displayMenu(filteredMenu);
     }
-    else{
-      const filteredMenu = menu.filter(item => item.category === category);
-      displayMenu(filteredMenu); 
-    }
-  })
-})
+  });
+});
